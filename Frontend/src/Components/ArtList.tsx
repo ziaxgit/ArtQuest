@@ -11,8 +11,13 @@ import {
 } from "react-bootstrap";
 import { fetchClevelandApiData } from "../utils/fetchApiData";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import {
+  getCollectionsFromLocalStorage,
+  setCollectionsToLocalStorage,
+} from "../utils/collectionsStorage";
 
 interface Artwork {
+  id: number;
   title: string;
   creation_date: string;
   department: string;
@@ -32,6 +37,9 @@ const ArtList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [filterTerm, setFilterTerm] = useState("");
   const [sortBy, setSortBy] = useState("");
+  const [addedArtworks, setAddedArtworks] = useState(
+    getCollectionsFromLocalStorage()
+  );
 
   const fetchArtData = async (
     page: number,
@@ -95,6 +103,27 @@ const ArtList = () => {
     fetchArtData(currentPage, searchTerm);
   };
 
+  const handleAddToCollection = (artwork: Artwork) => {
+    const newArtwork = {
+      id: artwork.id,
+      title: artwork.title,
+      description: artwork.description,
+      artist: artwork.creators.map((creator) => creator.description).join(", "),
+      origin: artwork.culture,
+      department: artwork.department,
+      url: artwork.url,
+      image_src: artwork.images.web.url,
+      created_at: artwork.creation_date,
+    };
+    const currentCollections = getCollectionsFromLocalStorage();
+
+    if (!currentCollections.some((item) => item.id === artwork.id)) {
+      const updatedCollections = [...currentCollections, newArtwork];
+      setCollectionsToLocalStorage(updatedCollections);
+      setAddedArtworks(updatedCollections);
+    }
+  };
+
   return (
     <Container className="mt-4">
       <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
@@ -119,7 +148,10 @@ const ArtList = () => {
 
       <div className="mt-2 d-flex gap-2 align-items-center">
         <Dropdown className="mt-2">
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+          <Dropdown.Toggle
+            variant={filterTerm ? "success" : "secondary"}
+            id="dropdown-basic"
+          >
             {filterTerm || "Filter by department"}
           </Dropdown.Toggle>
 
@@ -153,7 +185,10 @@ const ArtList = () => {
         </Dropdown>
 
         <Dropdown className="mt-2">
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+          <Dropdown.Toggle
+            variant={sortBy ? "success" : "secondary"}
+            id="dropdown-basic"
+          >
             {sortBy || "Sort by"}
           </Dropdown.Toggle>
 
@@ -213,18 +248,27 @@ const ArtList = () => {
                     dangerouslySetInnerHTML={{ __html: artwork.description }}
                   />
                 </Card.Text>
-                <Row>
-                  <Col>
-                    <Button variant="secondary">Add to Collection</Button>{" "}
-                    <Button variant="secondary">Add to Exhibition</Button>
-                  </Col>
-                </Row>
+                <Col className="d-flex gap-2">
+                  <Button
+                    onClick={() => handleAddToCollection(artwork)}
+                    variant={
+                      addedArtworks.some((item) => item.id === artwork.id)
+                        ? "success"
+                        : "secondary"
+                    }
+                  >
+                    {addedArtworks.some((item) => item.id === artwork.id)
+                      ? "Added to Collections"
+                      : "Add to Collection"}
+                  </Button>
+                  <Button variant="secondary">Add to Exhibition</Button>
+                </Col>
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
-      {isLoading && (
+      {isLoading && artData.length > 0 && (
         <div className="d-flex justify-content-center m-2">
           <Spinner animation="border" />
         </div>

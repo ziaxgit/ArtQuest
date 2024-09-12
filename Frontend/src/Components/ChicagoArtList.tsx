@@ -11,18 +11,22 @@ import {
 } from "react-bootstrap";
 import { fetchChicagoApiData } from "../utils/fetchApiData";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import {
+  getCollectionsFromLocalStorage,
+  setCollectionsToLocalStorage,
+} from "../utils/collectionsStorage";
 
 interface Artwork {
+  id: number;
   title: string;
-  creation_date: string;
-  department: string;
-  culture: string;
-  technique: string;
-  creators: { description: string }[];
-  images: { web: { url: string } };
+  date_start: number;
+  image_id: string;
+  date_display: string;
+  department_title: string;
+  place_of_origin: string;
+  artist_display: string;
+  api_link: string;
   description: string;
-  url: string;
-  sortable_date: Number;
 }
 
 const ChicagoArtList = () => {
@@ -32,6 +36,9 @@ const ChicagoArtList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [filterTerm, setFilterTerm] = useState("");
   const [sortBy, setSortBy] = useState("");
+  const [addedArtworks, setAddedArtworks] = useState(
+    getCollectionsFromLocalStorage()
+  );
 
   const fetchArtData = async (
     page: number,
@@ -68,7 +75,7 @@ const ChicagoArtList = () => {
   };
 
   useEffect(() => {
-    fetchArtData(currentPage, searchTerm);
+    fetchArtData(currentPage, searchTerm, filterTerm, sortBy);
   }, [currentPage]);
 
   const handleLoadMore = () => {
@@ -84,22 +91,33 @@ const ChicagoArtList = () => {
     }
   };
 
-  const handleFilterClick = (filter: string) => {
+  const handleFilterClick = async (filter: string) => {
     setSearchTerm("");
-    setCurrentPage(1);
     setFilterTerm(filter);
-    fetchArtData(currentPage, "", filter);
+    setSortBy("");
+    setIsLoading(true);
+    const response = await fetchChicagoApiData(1, "", filter);
+    const data = response.data.data.filter(
+      (artwork: Artwork) => artwork.department_title === filter
+    );
+    setArtData(data);
+    setIsLoading(false);
+    console.log(artData);
   };
 
   const handleSortClick = (sort: string) => {
     setCurrentPage(1);
     setSortBy(sort);
-    if (sort === "Oldest first") {
-      artData.sort((a: any, b: any) => a.sortable_date - b.sortable_date);
-    } else {
-      artData.sort((a: any, b: any) => b.sortable_date - a.sortable_date);
-      console.log(artData);
-    }
+
+    setArtData((prevData) => {
+      const sortedData = [...prevData]; // Create a copy of the previous data
+      if (sort === "Oldest first") {
+        sortedData.sort((a, b) => a.date_start - b.date_start);
+      } else {
+        sortedData.sort((a, b) => b.date_start - a.date_start);
+      }
+      return sortedData;
+    });
   };
 
   const handleReset = () => {
@@ -110,12 +128,31 @@ const ChicagoArtList = () => {
     fetchArtData(currentPage, searchTerm);
   };
 
-  console.log(artData);
+  const handleAddToCollection = (artwork: Artwork) => {
+    const newArtwork = {
+      id: artwork.id,
+      title: artwork.title,
+      description: artwork.description,
+      artist: artwork.artist_display,
+      origin: artwork.place_of_origin,
+      department: artwork.department_title,
+      url: artwork.api_link,
+      image_src: `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`,
+      created_at: artwork.date_display,
+    };
+    const currentCollections = getCollectionsFromLocalStorage();
+
+    if (!currentCollections.some((item) => item.id === artwork.id)) {
+      const updatedCollections = [...currentCollections, newArtwork];
+      setCollectionsToLocalStorage(updatedCollections);
+      setAddedArtworks(updatedCollections);
+    }
+  };
 
   return (
     <Container className="mt-4">
       <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
-        Art Institue of Chicago{" "}
+        Art Institute of Chicago{" "}
       </h1>
       <Form
         onSubmit={(e) => {
@@ -141,41 +178,42 @@ const ChicagoArtList = () => {
 
       <div className="mt-2 d-flex gap-2 align-items-center">
         <Dropdown className="mt-2">
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+          <Dropdown.Toggle
+            variant={filterTerm ? "success" : "secondary"}
+            id="dropdown-basic"
+          >
             {filterTerm || "Filter by department"}
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => handleFilterClick("African Art")}>
-              African Art
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => handleFilterClick("Chinese Art")}>
-              Chinese Art
+            <Dropdown.Item
+              onClick={() => handleFilterClick("Prints and Drawings")}
+            >
+              Prints and Drawings
             </Dropdown.Item>
             <Dropdown.Item
               onClick={() =>
-                handleFilterClick("Egyptian and Ancient Near Eastern Art")
+                handleFilterClick("Painting and Sculpture of Europe")
               }
             >
-              Egyptian and Ancient Near Eastern Art
+              Painting and Sculpture of Europe
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleFilterClick("Arts of Asia")}>
+              Arts of Asia
             </Dropdown.Item>
             <Dropdown.Item
-              onClick={() =>
-                handleFilterClick("European Painting and Sculpture")
-              }
+              onClick={() => handleFilterClick("Photography and Media")}
             >
-              European Painting and Sculpture
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => handleFilterClick("Decorative Art and Design")}
-            >
-              Decorative Art and Design
+              Photography and Media
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
 
         <Dropdown className="mt-2">
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+          <Dropdown.Toggle
+            variant={sortBy ? "success" : "secondary"}
+            id="dropdown-basic"
+          >
             {sortBy || "Sort by"}
           </Dropdown.Toggle>
 
@@ -217,7 +255,10 @@ const ChicagoArtList = () => {
               />
 
               <Card.Body>
-                <Link className="text-decoration-none" to={artwork.url}>
+                <Link
+                  className="text-decoration-none"
+                  to={`https://www.artic.edu/artworks/${artwork.id}`}
+                >
                   <Card.Title>{artwork.title}</Card.Title>
                 </Link>
                 <Card.Text>
@@ -225,7 +266,6 @@ const ChicagoArtList = () => {
                   <strong>Department:</strong> {artwork.department_title} <br />
                   <strong>Place of origin:</strong> {artwork.place_of_origin}{" "}
                   <br />
-                  {/* <strong>Technique:</strong> {artwork.technique} <br /> */}
                   <strong>Creator: </strong>
                   {artwork.artist_display}
                 </Card.Text>
@@ -233,12 +273,21 @@ const ChicagoArtList = () => {
                   className="mt-2"
                   dangerouslySetInnerHTML={{ __html: artwork.description }}
                 />
-                <Row>
-                  <Col>
-                    <Button variant="secondary">Add to Collection</Button>{" "}
-                    <Button variant="secondary">Add to Exhibition</Button>
-                  </Col>
-                </Row>
+                <Col className="d-flex gap-2">
+                  <Button
+                    onClick={() => handleAddToCollection(artwork)}
+                    variant={
+                      addedArtworks.some((item) => item.id === artwork.id)
+                        ? "success"
+                        : "secondary"
+                    }
+                  >
+                    {addedArtworks.some((item) => item.id === artwork.id)
+                      ? "Added to Collections"
+                      : "Add to Collection"}
+                  </Button>
+                  <Button variant="secondary">Add to Exhibition</Button>
+                </Col>
               </Card.Body>
             </Card>
           </Col>
@@ -272,3 +321,4 @@ const ChicagoArtList = () => {
 };
 
 export default ChicagoArtList;
+
