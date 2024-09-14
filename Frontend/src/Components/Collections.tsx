@@ -8,6 +8,8 @@ import {
   Form,
   Spinner,
   Dropdown,
+  Modal,
+  ListGroup,
 } from "react-bootstrap";
 import { fetchChicagoApiData } from "../utils/fetchApiData";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
@@ -15,6 +17,7 @@ import {
   getCollectionsFromLocalStorage,
   setCollectionsToLocalStorage,
 } from "../utils/collectionsStorage";
+import { getExhibitionsFromLocalStorage } from "../utils/exhibitionStorage";
 
 interface Artwork {
   id: number;
@@ -27,51 +30,154 @@ interface Artwork {
   image_src: string;
   created_at: string;
 }
-
-export default function Collections() {
+export default function Exhibitions() {
   const [artData, setArtData] = useState<Artwork[]>(
     getCollectionsFromLocalStorage()
   );
+  const [exhibitions, setExhibitions] = useState<Exhibition[]>(
+    getExhibitionsFromLocalStorage()
+  );
+  const [show, setShow] = useState(false);
+  const [exhibitionName, setExhibitionName] = useState("");
+  const [exhibitionDescription, setExhibitionDescription] = useState("");
+  const [exhibitionImage, setExhibitionImage] = useState<File | null>(null);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setExhibitionImage(e.target.files[0]);
+    }
+  };
+
+  const handleCreate = () => {
+    if (exhibitionName.trim()) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const newExhibitionList = [
+          ...exhibitions,
+          {
+            name: exhibitionName.trim(),
+            description: exhibitionDescription.trim(),
+            path: `/exhibitions/${exhibitionName.trim()}`,
+            imageUrl: reader.result as string,
+          },
+        ];
+        setExhibitions(newExhibitionList);
+        setExhibitionsToLocalStorage(newExhibitionList);
+        setExhibitionName("");
+        setExhibitionDescription("");
+        setExhibitionImage(null);
+        handleClose();
+      };
+      if (exhibitionImage) {
+        reader.readAsDataURL(exhibitionImage);
+      } else {
+        const newExhibitionList = [
+          ...exhibitions,
+          {
+            name: exhibitionName.trim(),
+            description: exhibitionDescription.trim(),
+            path: `/exhibitions/${exhibitionName.trim()}`,
+            imageUrl: "",
+          },
+        ];
+        setExhibitions(newExhibitionList);
+        setExhibitionsToLocalStorage(newExhibitionList);
+        setExhibitionName("");
+        setExhibitionDescription("");
+        handleClose();
+      }
+    }
+  };
 
   return (
-    <Container className="mt-4">
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
-        {artData.length > 0
-          ? "Your saved artworks"
-          : "No saved artworks yet :("}
-      </h2>
+    <>
+      <Container>
+        <Row className="mt-4">
+          {exhibitions.map((exhibition, index) => (
+            <Col key={index} xs={12} sm={6} md={4} className="mb-4">
+              <Card className="rounded-0 rounded-top-2 shadow-sm">
+                {exhibition.imageUrl && (
+                  <Card.Img variant="top" src={exhibition.imageUrl} />
+                )}
+                <Card.Body>
+                  <Card.Title>{exhibition.name}</Card.Title>
+                  <Card.Text>{exhibition.description}</Card.Text>
+                </Card.Body>
+              </Card>
+              <Button className="w-75 rounded-0" variant="secondary">
+                View exhibition
+              </Button>
+              <Button className="w-25 rounded-0" variant="danger">
+                Delete
+              </Button>
+            </Col>
+          ))}
+        </Row>
+        <Button onClick={handleShow} variant="primary">
+          New Exhibition
+        </Button>
+      </Container>
 
-      <Row className="mt-4">
-        {artData.map((artwork: Artwork, index) => (
-          <Col key={index} sm={6} md={6} lg={6} className="mb-4">
-            <Card>
-              <Card.Img
-                variant="top"
-                src={artwork.image_src}
-                alt={artwork.title}
-                style={{ maxHeight: "500px", objectFit: "cover" }}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Create New Exhibition</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formExhibitionName">
+              <Form.Label>Exhibition Name</Form.Label>
+              <Form.Control
+                className="mb-2"
+                type="text"
+                placeholder="Enter name"
+                value={exhibitionName}
+                onChange={(e) => setExhibitionName(e.target.value)}
               />
-              <Card.Body>
-                <Link className="text-decoration-none" to={artwork.url}>
-                  <Card.Title>{artwork.title}</Card.Title>
-                </Link>
-                <Card.Text>
-                  <strong>Creation Date:</strong> {artwork.created_at} <br />
-                  <strong>Department:</strong> {artwork.department} <br />
-                  <strong>Culture:</strong> {artwork.origin} <br />
-                  {/* <strong>Technique:</strong> {artwork.technique} <br /> */}
-                  <strong>Creator: </strong>
-                  {artwork.artist} <br />
-                </Card.Text>
-                <Card.Text
-                  className="mt-2"
-                  dangerouslySetInnerHTML={{ __html: artwork.description }}
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                type="text"
+                placeholder="Enter description"
+                value={exhibitionDescription}
+                onChange={(e) => setExhibitionDescription(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formFile" className="mt-2">
+              <Form.Label>Choose an image</Form.Label>
+              <Form.Control type="file" onChange={handleImageChange} />
+            </Form.Group>
+          </Form>
+          <Form.Label className="mt-2">
+            Select artworks for this exhibition
+          </Form.Label>
+          <ListGroup>
+            {artData.map((artwork) => (
+              <ListGroup.Item
+                key={artwork.id}
+                className="d-flex justify-content-between align-items-center"
+              >
+                <Form.Check
+                  type="checkbox"
+                  id={`checkbox-${artwork.id}`}
+                  label={`${artwork.title} by ${artwork.artist}`}
                 />
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-    </Container>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleCreate}>
+            Create
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 }

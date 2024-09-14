@@ -2,19 +2,37 @@ interface Exhibition {
   name: string;
   path: string;
   description: string;
+  artworks: string[];
 }
 
 export const getExhibitionsFromLocalStorage = (): Exhibition[] => {
-  const storedExhibitions = localStorage.getItem("exhibitions");
-  return storedExhibitions ? JSON.parse(storedExhibitions) : [];
+  try {
+    // localStorage.removeItem("exhibitions");
+
+    const storedExhibitions = localStorage.getItem("exhibitions");
+
+    console.log(JSON.parse(storedExhibitions));
+    return storedExhibitions ? JSON.parse(storedExhibitions) : [];
+  } catch (error) {
+    console.error("Error retrieving exhibitions from localStorage", error);
+    return [];
+  }
 };
 
 export const setExhibitionsToLocalStorage = (
   exhibitions: Exhibition[]
 ): void => {
-  localStorage.setItem("exhibitions", JSON.stringify(exhibitions));
+  try {
+    localStorage.setItem("exhibitions", JSON.stringify(exhibitions));
+  } catch (error) {
+    console.error("Error setting exhibitions to localStorage", error);
+  }
 };
 
-export const clearExhibitionsFromLocalStorage = () => {
-  localStorage.removeItem("exhibitions");
+export const clearExhibitionsFromLocalStorage = (): void => {
+  try {
+    localStorage.removeItem("exhibitions");
+  } catch (error) {
+    console.error("Error clearing exhibitions from localStorage", error);
+  }
 };

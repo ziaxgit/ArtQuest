@@ -7,17 +7,23 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import {
+  getCollectionsFromLocalStorage,
+  setCollectionsToLocalStorage,
+} from "../utils/collectionsStorage";
 
-type Exhibition = {
+interface Exhibition {
   name: string;
   path: string;
   description: string;
-};
+  artworks: string[];
+}
 
 export default function Exhibitions() {
   const [exhibitions, setExhibitions] = useState<Exhibition[]>(
     getExhibitionsFromLocalStorage()
   );
+  const [artData, setArtData] = useState(getCollectionsFromLocalStorage());
 
   const [show, setShow] = useState(false);
   const [exhibitionName, setExhibitionName] = useState("");
@@ -25,6 +31,7 @@ export default function Exhibitions() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const handleCreate = () => {
     if (exhibitionName.trim()) {
       const newExhibitionList = [
@@ -93,8 +100,27 @@ export default function Exhibitions() {
                 onChange={(e) => setExhibitionDescription(e.target.value)}
               />
             </Form.Group>
+            <Form.Group controlId="formFile" className="mt-2">
+              <Form.Label>Choose an image</Form.Label>
+              <Form.Control type="file" />
+            </Form.Group>
           </Form>
+          <Form.Label className="mt-2">
+            Select artworks for this exhibition
+          </Form.Label>
         </Modal.Body>
+
+        <Form>
+          <div key={`default-checkbox`} className="mb-3">
+            <Form.Check // prettier-ignore
+              type={"checkbox"}
+              id={`default-checkbox`}
+              label={`default checkbox`}
+              size={"l"}
+            />
+          </div>
+        </Form>
+
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cancel
