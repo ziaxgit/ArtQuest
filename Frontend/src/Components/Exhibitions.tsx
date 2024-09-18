@@ -17,7 +17,10 @@ import {
   getCollectionsFromLocalStorage,
   setCollectionsToLocalStorage,
 } from "../utils/collectionsStorage";
-import { getExhibitionsFromLocalStorage } from "../utils/exhibitionStorage";
+import {
+  getExhibitionsFromLocalStorage,
+  setExhibitionsToLocalStorage,
+} from "../utils/exhibitionStorage";
 
 interface Artwork {
   id: number;
@@ -42,7 +45,10 @@ export default function Exhibitions() {
   const [exhibitionDescription, setExhibitionDescription] = useState("");
   const [exhibitionImage, setExhibitionImage] = useState<File | null>(null);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    console.log("handleClick");
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

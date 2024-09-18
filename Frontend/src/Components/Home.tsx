@@ -1,7 +1,6 @@
 import { clearExhibitionsFromLocalStorage } from "../utils/exhibitionStorage";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import artInstituteOfChicagoImage from "../assets/wide_med_art-institute-of-chicago-01-2.jpg";
-import metMuseumImage from "../assets/metmuseum-1200x630.webp";
 import clevelandMuseumImage from "../assets/ClevelandMuseum_exterior.jpg";
 import { useNavigate } from "react-router-dom";
 

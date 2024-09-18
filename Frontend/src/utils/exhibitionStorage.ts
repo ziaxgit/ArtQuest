@@ -32,6 +32,7 @@ export const setExhibitionsToLocalStorage = (
 export const clearExhibitionsFromLocalStorage = (): void => {
   try {
     localStorage.removeItem("exhibitions");
+    localStorage.removeItem("collections");
   } catch (error) {
     console.error("Error clearing exhibitions from localStorage", error);
   }
