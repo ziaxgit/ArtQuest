@@ -3,3 +3,12 @@
   line-height: 1.5;
   font-weight: 400;
 }
+
+.home-desc-font {
+  font-size: 20px;
+}
+
+.museum-img {
+  max-height: 300px;
+  /* max-width: 100%; */
+}
