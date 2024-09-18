@@ -101,9 +101,12 @@ export default function Exhibitions() {
   return (
     <>
       <Container>
+        <Button onClick={handleShow} variant="primary" className="mt-4">
+          New Exhibition
+        </Button>
         <Row className="mt-4">
           {exhibitions.map((exhibition, index) => (
-            <Col key={index} xs={12} sm={6} md={4} className="mb-4">
+            <Col key={index} xs={12} sm={6} md={6} className="mb-4">
               <Card className="rounded-0 rounded-top-2 shadow-sm">
                 {exhibition.imageUrl && (
                   <Card.Img variant="top" src={exhibition.imageUrl} />
@@ -122,9 +125,6 @@ export default function Exhibitions() {
             </Col>
           ))}
         </Row>
-        <Button onClick={handleShow} variant="primary">
-          New Exhibition
-        </Button>
       </Container>
 
       <Modal show={show} onHide={handleClose}>
