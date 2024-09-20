@@ -4,6 +4,8 @@ import artInstituteOfChicagoImage from "../assets/wide_med_art-institute-of-chic
 import clevelandMuseumImage from "../assets/ClevelandMuseum_exterior.jpg";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
+import HeroSection from "./HeroSection";
+
 export default function Home() {
   let navigate = useNavigate();
 
@@ -13,13 +15,14 @@ export default function Home() {
 
   return (
     <div>
+      <HeroSection />
       <button
         onClick={() => clearExhibitionsFromLocalStorage()}
         className="mb-3"
       >
         Reset Local Cache
       </button>
-      <Container>
+      <Container id="explore">
         <p>
           Welcome to ArtQuest – your gateway to a world of artistic
           masterpieces! At ArtQuest, we celebrate the timeless beauty and
@@ -63,6 +66,13 @@ export default function Home() {
         <Row>
           <Col>
             <Card className="d-flex flex-row flex-wrap border-0 shadow gap-">
+              <Col xs={12} md={6}>
+                <img
+                  src={artInstituteOfChicagoImage}
+                  alt="Image"
+                  className="img-fluid museum-img"
+                />
+              </Col>
               <Col xs={12} md={6} className="p-3">
                 <h3 className="card-title mb-4">Art Institute of Chicago</h3>
                 <p className="mb-4">
@@ -77,18 +87,33 @@ export default function Home() {
                   Browse
                 </Button>
               </Col>
-              <Col xs={12} md={6}>
-                <img
-                  src={artInstituteOfChicagoImage}
-                  alt="Image"
-                  className="img-fluid museum-img"
-                />
-              </Col>
             </Card>
           </Col>
         </Row>
       </Container>
-
+      <footer className="bg-dark text-white mt-5">
+        <div className="container py-3">
+          <div className="row">
+            <div className="col-md-6">
+              <p>
+                &copy; {new Date().getFullYear()} ArtQuest. All rights reserved.
+              </p>
+            </div>
+            <div className="col-md-6 text-md-end">
+              Built by
+              <a
+                href="https://github.com/your-github-repo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white"
+              >
+                <i className="bi bi-github me-1"></i>
+                Ziaur Rahman
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
       {/* <Container>
         <h2 className="text-center">Let's explore...</h2>
         <Row className="mt-4 justify-content-center">
