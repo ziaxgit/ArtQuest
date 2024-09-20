@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -14,7 +14,9 @@ const NavBar: React.FC = () => {
       className="bg-body-tertiary"
     >
       <Container>
-        <Navbar.Brand className="fs-1" href="/">ArtQuest</Navbar.Brand>
+        <Navbar.Brand className="fs-1" href="/">
+          ArtQuest
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="fs-5" id="basic-navbar-nav">
           <Nav className="ms-auto">

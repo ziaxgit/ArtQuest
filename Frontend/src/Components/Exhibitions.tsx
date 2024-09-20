@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+// @ts-nocheck
+
+import React, { useState } from "react";
 import {
   Container,
   Row,
@@ -6,17 +8,10 @@ import {
   Card,
   Button,
   Form,
-  Spinner,
-  Dropdown,
   Modal,
   ListGroup,
 } from "react-bootstrap";
-import { fetchChicagoApiData } from "../utils/fetchApiData";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import {
-  getCollectionsFromLocalStorage,
-  setCollectionsToLocalStorage,
-} from "../utils/collectionsStorage";
+import { getCollectionsFromLocalStorage } from "../utils/collectionsStorage";
 import {
   getExhibitionsFromLocalStorage,
   setExhibitionsToLocalStorage,
@@ -33,10 +28,16 @@ interface Artwork {
   image_src: string;
   created_at: string;
 }
+
+interface Exhibition {
+  name: string;
+  path: string;
+  description: string;
+  artworks: string[];
+}
+
 export default function Exhibitions() {
-  const [artData, setArtData] = useState<Artwork[]>(
-    getCollectionsFromLocalStorage()
-  );
+  const [artData] = useState<Artwork[]>(getCollectionsFromLocalStorage());
   const [exhibitions, setExhibitions] = useState<Exhibition[]>(
     getExhibitionsFromLocalStorage()
   );

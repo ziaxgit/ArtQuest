@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 import Home from "./Components/Home";
@@ -15,7 +15,7 @@ interface Exhibition {
 }
 
 const App: React.FC = () => {
-  const [exhibitions, setExhibitions] = useState<Exhibition[]>(
+  const [exhibitions] = useState<Exhibition[]>(
     getExhibitionsFromLocalStorage()
   );
   return (

@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Button,
-  Form,
-  Spinner,
-  Dropdown,
-} from "react-bootstrap";
-import { fetchChicagoApiData } from "../utils/fetchApiData";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Card } from "react-bootstrap";
 
-const CardImage = ({ artwork }: { artwork: Artwork }) => {
-  console.log(artwork.thumbnail?.lqip);
+interface Artwork {
+  thumbnail: {
+    lqip: string;
+  };
+  image_id: string;
+}
 
-  const [imageSrc, setImageSrc] = useState(artwork.thumbnail.lqip);
-  const [imageLoaded, setImageLoaded] = useState(false);
+const CardImage: React.FC<{ artwork: Artwork }> = ({ artwork }) => {
+  const [imageSrc, setImageSrc] = useState<string>(artwork.thumbnail?.lqip || '');
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
   const highResImageSrc = `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`;
 
@@ -35,6 +29,7 @@ const CardImage = ({ artwork }: { artwork: Artwork }) => {
       src={imageSrc}
       style={{ maxHeight: "500px", objectFit: "cover" }}
       className={imageLoaded ? "loaded" : "loading"}
+      alt={`Artwork image`}
     />
   );
 };

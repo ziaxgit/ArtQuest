@@ -1,20 +1,7 @@
-import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Button,
-  Form,
-  Spinner,
-  Dropdown,
-} from "react-bootstrap";
-import { fetchChicagoApiData } from "../utils/fetchApiData";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import {
-  getCollectionsFromLocalStorage,
-  setCollectionsToLocalStorage,
-} from "../utils/collectionsStorage";
+import { useState } from "react";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { getCollectionsFromLocalStorage } from "../utils/collectionsStorage";
 
 interface Artwork {
   id: number;
@@ -29,9 +16,7 @@ interface Artwork {
 }
 
 export default function Collections() {
-  const [artData, setArtData] = useState<Artwork[]>(
-    getCollectionsFromLocalStorage()
-  );
+  const [artData] = useState<Artwork[]>(getCollectionsFromLocalStorage());
 
   return (
     <Container className="mt-4">
