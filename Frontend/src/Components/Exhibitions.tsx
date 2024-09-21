@@ -1,4 +1,3 @@
-// Exhibitions.tsx
 import React, { useState } from "react";
 import {
   Container,
@@ -34,7 +33,7 @@ interface Exhibition {
   path: string;
   description: string;
   artworks: number[];
-  imageUrl: string;
+  imageUrl?: string;
 }
 
 export default function Exhibitions() {

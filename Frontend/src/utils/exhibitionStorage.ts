@@ -2,13 +2,12 @@ interface Exhibition {
   name: string;
   path: string;
   description: string;
-  artworks: number[]; // Use number[] if IDs are numbers
+  artworks: number[];
 }
 
 export const getExhibitionsFromLocalStorage = (): Exhibition[] => {
   try {
     const storedExhibitions = localStorage.getItem("exhibitions");
-
     console.log(JSON.parse(storedExhibitions));
     return storedExhibitions ? JSON.parse(storedExhibitions) : [];
   } catch (error) {
