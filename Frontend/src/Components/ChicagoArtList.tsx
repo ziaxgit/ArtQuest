@@ -10,7 +10,6 @@ import {
   Dropdown,
 } from "react-bootstrap";
 import { fetchChicagoApiData } from "../utils/fetchApiData";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import {
   getCollectionsFromLocalStorage,
   setCollectionsToLocalStorage,
@@ -255,12 +254,14 @@ const ChicagoArtList = () => {
               />
 
               <Card.Body>
-                <Link
+                <a
+                  href={`https://www.artic.edu/artworks/${artwork.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-decoration-none"
-                  to={`https://www.artic.edu/artworks/${artwork.id}`}
                 >
-                  <Card.Title>{artwork.title}</Card.Title>
-                </Link>
+                  <h4>{artwork.title}</h4>
+                </a>
                 <Card.Text>
                   <strong>Creation Date:</strong> {artwork.date_display} <br />
                   <strong>Department:</strong> {artwork.department_title} <br />

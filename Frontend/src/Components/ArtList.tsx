@@ -10,7 +10,6 @@ import {
   Dropdown,
 } from "react-bootstrap";
 import { fetchClevelandApiData } from "../utils/fetchApiData";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import {
   getCollectionsFromLocalStorage,
   setCollectionsToLocalStorage,
@@ -226,9 +225,14 @@ const ArtList = () => {
                 style={{ maxHeight: "500px", objectFit: "cover" }}
               />
               <Card.Body>
-                <Link className="text-decoration-none" to={artwork.url}>
-                  <Card.Title>{artwork.title}</Card.Title>
-                </Link>
+                <a
+                  href={artwork.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-decoration-none"
+                >
+                  <h4>{artwork.title}</h4>
+                </a>
                 <Card.Text>
                   <strong>Creation Date:</strong> {artwork.creation_date} <br />
                   <strong>Department:</strong> {artwork.department} <br />
@@ -238,7 +242,6 @@ const ArtList = () => {
                   {artwork.creators
                     .map((creator) => creator.description)
                     .join(", ")}
-                  {/* <p className="mt-2">{artwork.description}</p> */}
                   <Card.Text
                     className="mt-2"
                     dangerouslySetInnerHTML={{ __html: artwork.description }}
