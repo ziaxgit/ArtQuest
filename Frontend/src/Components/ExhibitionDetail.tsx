@@ -1,5 +1,5 @@
 // ExhibitionDetail.tsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { getExhibitionsFromLocalStorage } from "../utils/exhibitionStorage";
@@ -22,7 +22,7 @@ interface Exhibition {
   path: string;
   description: string;
   artworks: number[];
-  imageUrl: string;
+  imageUrl?: string;
 }
 
 export default function ExhibitionDetail() {
