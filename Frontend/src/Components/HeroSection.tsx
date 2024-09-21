@@ -1,5 +1,4 @@
-import React from "react";
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import "../index.css"; // Custom styles for the hero section
 
 function HeroSection() {
