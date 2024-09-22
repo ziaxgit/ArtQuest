@@ -43,10 +43,14 @@
 
 @media (max-width: 576px) {
   .hero-text-div h1 {
-    font-size: 2rem;
+    font-size: 1.7rem;
   }
   .hero-text-div p {
-    font-size: 1.1rem;
+    font-size: 15px;
+  }
+
+  .hero-btn a {
+    font-size: 13px;
   }
 }
 @media (min-width: 768px) {
