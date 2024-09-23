@@ -1,5 +1,4 @@
 import { clearExhibitionsFromLocalStorage } from "../utils/exhibitionStorage";
-import { Container } from "react-bootstrap";
 
 import "../index.css";
 import HeroSection from "./HeroSection";
