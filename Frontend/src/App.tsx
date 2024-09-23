@@ -7,6 +7,8 @@ import Exhibitions from "./Components/Exhibitions";
 import ArtList from "./Components/ArtList";
 import ChicagoArtList from "./Components/ChicagoArtList";
 import ExhibitionDetail from "./Components/ExhibitionDetail";
+import Explore from "./Components/Explore";
+import Footer from "./Components/Footer";
 
 const App: React.FC = () => {
   return (
@@ -16,6 +18,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/collections" element={<Collections />} />
         <Route path="/exhibitions" element={<Exhibitions />} />
+        <Route path="/explore" element={<Explore />} />
         <Route
           path="/exhibitions/:exhibitionName"
           element={<ExhibitionDetail />}
@@ -25,6 +28,7 @@ const App: React.FC = () => {
         <Route path={"/artwork/:artId"} element={<Collections />} />
         <Route path={"chichagoart"} element={<ChicagoArtList />} />
       </Routes>
+      <Footer />
     </>
   );
 };

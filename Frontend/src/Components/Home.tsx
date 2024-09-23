@@ -1,18 +1,10 @@
 import { clearExhibitionsFromLocalStorage } from "../utils/exhibitionStorage";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import artInstituteOfChicagoImage from "../assets/wide_med_art-institute-of-chicago-01-2.jpg";
-import clevelandMuseumImage from "../assets/ClevelandMuseum_exterior.jpg";
-import { useNavigate } from "react-router-dom";
+import { Container } from "react-bootstrap";
+
 import "../index.css";
 import HeroSection from "./HeroSection";
 
 export default function Home() {
-  let navigate = useNavigate();
-
-  function handleClick(apiName: string) {
-    navigate(`/${apiName}`);
-  }
-
   return (
     <div>
       <HeroSection />
@@ -32,88 +24,7 @@ export default function Home() {
           offers a rich and immersive experience tailored to your interests.
         </p>
       </Container>
-      <Container className="mt-5">
-        <Row>
-          <Col>
-            <Card className="d-flex flex-row flex-wrap border-0 shadow gap-">
-              <Col xs={12} md={6}>
-                <img
-                  src={clevelandMuseumImage}
-                  alt="Image"
-                  className="img-fluid museum-img"
-                />
-              </Col>
 
-              <Col xs={12} md={6} className="p-3">
-                <h3 className="card-title mb-4">Cleveland Museum of Art</h3>
-                <p className="mb-4">
-                  The Cleveland Museum of Art, established in 1913, is a
-                  distinguished art museum located in Cleveland, Ohio. Renowned
-                  for its diverse and comprehensive collection, the museum
-                  features over 61,000 artworks from various cultures and time
-                  periods. Highlights include pieces by iconic artists such as
-                  Caravaggio, Monet, and Picasso.
-                </p>
-                <Button onClick={() => handleClick("clevelandmuseum")}>
-                  Browse
-                </Button>
-              </Col>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
-      <Container className="mt-5">
-        <Row>
-          <Col>
-            <Card className="d-flex flex-row flex-wrap border-0 shadow gap-">
-              <Col xs={12} md={6}>
-                <img
-                  src={artInstituteOfChicagoImage}
-                  alt="Image"
-                  className="img-fluid museum-img"
-                />
-              </Col>
-              <Col xs={12} md={6} className="p-3">
-                <h3 className="card-title mb-4">Art Institute of Chicago</h3>
-                <p className="mb-4">
-                  The Chicago Art Institute, founded in 1879, is a premier art
-                  museum located in the heart of Chicago. It boasts an extensive
-                  collection of artwork from around the world, featuring
-                  masterpieces by artists such as Vincent van Gogh, Grant Wood,
-                  and Georges Seurat. Known for its rich educational programs
-                  and public engagement initiatives.
-                </p>
-                <Button onClick={() => handleClick("chichagoart")}>
-                  Browse
-                </Button>
-              </Col>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
-      <footer className="bg-dark text-white mt-5">
-        <div className="container py-3">
-          <div className="row">
-            <div className="col-md-6">
-              <p>
-                &copy; {new Date().getFullYear()} ArtQuest. All rights reserved.
-              </p>
-            </div>
-            <div className="col-md-6 text-md-end">
-              Built by
-              <a
-                href="https://github.com/your-github-repo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white"
-              >
-                <i className="bi bi-github me-1"></i>
-                Ziaur Rahman
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
       {/* <Container>
         <h2 className="text-center">Let's explore...</h2>
         <Row className="mt-4 justify-content-center">

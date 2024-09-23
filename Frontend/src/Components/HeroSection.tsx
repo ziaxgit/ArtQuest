@@ -16,7 +16,7 @@ function HeroSection() {
             the art world to your fingertips.
           </p>
           <div className="mt-4 hero-btn">
-            <Button href="#explore" variant="primary" className="me-2">
+            <Button href="explore" variant="primary" className="me-2">
               Start Your ArtQuest
             </Button>
           </div>
