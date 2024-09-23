@@ -8,6 +8,7 @@ import {
   Form,
   Modal,
   ListGroup,
+  Alert,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getCollectionsFromLocalStorage } from "../utils/collectionsStorage";
@@ -46,9 +47,11 @@ export default function Exhibitions() {
   const [exhibitionDescription, setExhibitionDescription] = useState("");
   const [exhibitionImage, setExhibitionImage] = useState<File | null>(null);
   const [selectedArtworks, setSelectedArtworks] = useState<number[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleClose = () => {
     setShow(false);
+    setError(null);
   };
   const handleShow = () => setShow(true);
 
@@ -71,25 +74,32 @@ export default function Exhibitions() {
   };
 
   const handleCreate = () => {
-    if (exhibitionName.trim()) {
-      const newExhibition = {
-        name: exhibitionName.trim(),
-        description: exhibitionDescription.trim(),
-        path: `/exhibitions/${encodeURIComponent(exhibitionName.trim())}`,
-        imageUrl: "",
-        artworks: selectedArtworks,
-      };
+    if (!exhibitionName.trim()) {
+      setError("Please enter an exhibition name.");
+      return;
+    }
+    if (selectedArtworks.length === 0) {
+      setError("Please select at least one artwork for the exhibition.");
+      return;
+    }
 
-      if (exhibitionImage) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          newExhibition.imageUrl = reader.result as string;
-          saveExhibition(newExhibition);
-        };
-        reader.readAsDataURL(exhibitionImage);
-      } else {
+    const newExhibition = {
+      name: exhibitionName.trim(),
+      description: exhibitionDescription.trim(),
+      path: `/exhibitions/${encodeURIComponent(exhibitionName.trim())}`,
+      imageUrl: "",
+      artworks: selectedArtworks,
+    };
+
+    if (exhibitionImage) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        newExhibition.imageUrl = reader.result as string;
         saveExhibition(newExhibition);
-      }
+      };
+      reader.readAsDataURL(exhibitionImage);
+    } else {
+      saveExhibition(newExhibition);
     }
   };
 
@@ -102,6 +112,7 @@ export default function Exhibitions() {
     setExhibitionDescription("");
     setExhibitionImage(null);
     setSelectedArtworks([]);
+    setError(null);
     handleClose();
   };
 
@@ -157,6 +168,7 @@ export default function Exhibitions() {
           <Modal.Title>Create New Exhibition</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {error && <Alert variant="danger">{error}</Alert>}
           <Form>
             <Form.Group controlId="formExhibitionName">
               <Form.Label>Exhibition Name</Form.Label>
@@ -204,6 +216,7 @@ export default function Exhibitions() {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
+
           <Button variant="primary" onClick={handleCreate}>
             Create
           </Button>
