@@ -14,68 +14,6 @@ export default function Home() {
       >
         Reset Local Cache
       </button>
-
-      {/* <Container>
-        <h2 className="text-center">Let's explore...</h2>
-        <Row className="mt-4 justify-content-center">
-          <Col xs={10} sm={12} md={4} className="mb-4">
-            <Card className="h-100">
-              <Card.Img
-                variant="top"
-                src={clevelandMuseumImage}
-                className="img-fluid"
-                style={{ height: "200px", objectFit: "cover" }}
-              />
-              <Card.Body>
-                <Card.Title>Cleveland Museum of Art</Card.Title>
-                <Card.Text>
-                  The Cleveland Museum of Art, established in 1913, is a
-                  distinguished art museum located in Cleveland, Ohio. Renowned
-                  for its diverse and comprehensive collection, the museum
-                  features over 61,000 artworks from various cultures and time
-                  periods. Highlights include pieces by iconic artists such as
-                  Caravaggio, Monet, and Picasso.
-                </Card.Text>
-              </Card.Body>
-              <Button
-                onClick={() => handleClick("clevelandmuseum")}
-                className="w-100 rounded-0"
-                variant="primary"
-              >
-                Browse
-              </Button>
-            </Card>
-          </Col>
-          <Col xs={10} sm={12} md={4} className="mb-4">
-            <Card className="h-100">
-              <Card.Img
-                variant="top"
-                src={artInstituteOfChicagoImage}
-                className="img-fluid"
-                style={{ height: "200px", objectFit: "cover" }}
-              />
-              <Card.Body>
-                <Card.Title>Art Institute of Chicago</Card.Title>
-                <Card.Text>
-                  The Chicago Art Institute, founded in 1879, is a premier art
-                  museum located in the heart of Chicago. It boasts an extensive
-                  collection of artwork from around the world, featuring
-                  masterpieces by artists such as Vincent van Gogh, Grant Wood,
-                  and Georges Seurat. Known for its rich educational programs
-                  and public engagement initiatives.
-                </Card.Text>
-              </Card.Body>
-              <Button
-                onClick={() => handleClick("chichagoart")}
-                className="w-100 rounded-0"
-                variant="primary"
-              >
-                Browse
-              </Button>
-            </Card>
-          </Col>
-        </Row>
-      </Container> */}
     </div>
   );
 }
