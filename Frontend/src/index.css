@@ -4,6 +4,16 @@
   font-weight: 400;
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.main-container {
+  flex: 1;
+}
+
 .home-desc-font {
   font-size: 20px;
 }
@@ -67,5 +77,11 @@
 @media (min-width: 1000px) {
   .hero-img-div img {
     margin-top: -280px;
+  }
+}
+
+@media (max-width: 768px) {
+  footer .row {
+    text-align: center;
   }
 }

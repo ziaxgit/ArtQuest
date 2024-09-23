@@ -14,16 +14,6 @@ export default function Home() {
       >
         Reset Local Cache
       </button>
-      <Container id="explore">
-        <p>
-          Welcome to ArtQuest – your gateway to a world of artistic
-          masterpieces! At ArtQuest, we celebrate the timeless beauty and
-          cultural significance of art by showcasing a diverse collection of
-          artworks and pieces from renowned museums worldwide. Whether you are
-          an art enthusiast, a student, or a professional curator, ArtQuest
-          offers a rich and immersive experience tailored to your interests.
-        </p>
-      </Container>
 
       {/* <Container>
         <h2 className="text-center">Let's explore...</h2>

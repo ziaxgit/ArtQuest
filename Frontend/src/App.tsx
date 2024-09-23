@@ -12,24 +12,26 @@ import Footer from "./Components/Footer";
 
 const App: React.FC = () => {
   return (
-    <>
+    <section className="app-container">
       <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/collections" element={<Collections />} />
-        <Route path="/exhibitions" element={<Exhibitions />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route
-          path="/exhibitions/:exhibitionName"
-          element={<ExhibitionDetail />}
-        />
+      <main className="main-container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/collections" element={<Collections />} />
+          <Route path="/exhibitions" element={<Exhibitions />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route
+            path="/exhibitions/:exhibitionName"
+            element={<ExhibitionDetail />}
+          />
 
-        <Route path={"/clevelandmuseum"} element={<ArtList />} />
-        <Route path={"/artwork/:artId"} element={<Collections />} />
-        <Route path={"chichagoart"} element={<ChicagoArtList />} />
-      </Routes>
+          <Route path={"/clevelandmuseum"} element={<ArtList />} />
+          <Route path={"/artwork/:artId"} element={<Collections />} />
+          <Route path={"chichagoart"} element={<ChicagoArtList />} />
+        </Routes>
+      </main>
       <Footer />
-    </>
+    </section>
   );
 };
 
