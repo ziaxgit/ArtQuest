@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-dark text-white">
+    <footer className="bg-light text-black">
       <div className="container py-3">
         <div className="row sm-screen">
           <div className="col-md-6">
@@ -14,7 +14,6 @@ export default function Footer() {
               href="https://github.com/ziaxgit"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white"
             >
               <i className="me-1"></i>
               Ziaur Rahman
