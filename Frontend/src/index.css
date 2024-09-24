@@ -62,6 +62,11 @@
   .hero-btn a {
     font-size: 13px;
   }
+
+  .hero-section-container .container p {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }
 @media (min-width: 768px) {
   .hero-text-div h1 {
