@@ -165,7 +165,14 @@ export default function Exhibitions() {
   return (
     <>
       <Container>
-        <Button onClick={handleShow} variant="primary" className="mt-4">
+        {exhibitions.length === 0 && (
+          <>
+            <h2 className="mt-4">No exhibitions yet</h2>
+            <p>Get started by adding a new exhibition </p>
+          </>
+        )}
+
+        <Button onClick={handleShow} variant="primary">
           New Exhibition
         </Button>
         <Row className="mt-4 ">

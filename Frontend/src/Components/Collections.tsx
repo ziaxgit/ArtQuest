@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getCollectionsFromLocalStorage } from "../utils/collectionsStorage";
+import { LuExternalLink } from "react-icons/lu";
 
 interface Artwork {
   id: number;
@@ -21,10 +22,13 @@ export default function Collections() {
   return (
     <Container className="mt-4">
       <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
-        {artData.length > 0
-          ? "Your saved artworks"
-          : "No saved artworks yet :("}
+        {artData.length > 0 ? "Saved artworks" : "No saved artworks"}
       </h2>
+      {artData.length === 0 && (
+        <p className="text-center">
+          Head to <a href="/explore">Explore</a> to browse artworks
+        </p>
+      )}
 
       <Row className="mt-4">
         {artData.map((artwork: Artwork, index) => (
@@ -37,9 +41,17 @@ export default function Collections() {
                 style={{ maxHeight: "500px", objectFit: "cover" }}
               />
               <Card.Body>
-                <Link className="text-decoration-none" to={artwork.url}>
-                  <Card.Title>{artwork.title}</Card.Title>
-                </Link>
+                <a
+                  href={artwork.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-decoration-none"
+                >
+                  <h5 className="d-flex gap-2 align-items-center">
+                    {artwork.title}
+                    <LuExternalLink />
+                  </h5>
+                </a>
                 <Card.Text>
                   <strong>Creation Date:</strong> {artwork.created_at} <br />
                   <strong>Department:</strong> {artwork.department} <br />

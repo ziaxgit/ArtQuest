@@ -14,6 +14,7 @@ import {
   getCollectionsFromLocalStorage,
   setCollectionsToLocalStorage,
 } from "../utils/collectionsStorage";
+import { LuExternalLink } from "react-icons/lu";
 
 interface Artwork {
   id: number;
@@ -123,6 +124,10 @@ const ArtList = () => {
     }
   };
 
+  const isArtworkAdded = (artwork: Artwork) => {
+    return addedArtworks.some((item) => item.id === artwork.id);
+  };
+
   return (
     <Container className="mt-4">
       <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
@@ -218,12 +223,14 @@ const ArtList = () => {
         {artData.map((artwork: Artwork, index) => (
           <Col key={index} sm={6} md={6} lg={6} className="mb-4">
             <Card>
-              <Card.Img
-                variant="top"
-                src={artwork.images.web.url}
-                alt={artwork.title}
-                style={{ maxHeight: "500px", objectFit: "cover" }}
-              />
+              <a>
+                <Card.Img
+                  variant="top"
+                  src={artwork.images.web.url}
+                  alt={artwork.title}
+                  style={{ maxHeight: "500px", objectFit: "contain" }}
+                />
+              </a>
               <Card.Body>
                 <a
                   href={artwork.url}
@@ -231,7 +238,10 @@ const ArtList = () => {
                   rel="noopener noreferrer"
                   className="text-decoration-none"
                 >
-                  <h4>{artwork.title}</h4>
+                  <h5 className="d-flex gap-2 align-items-center">
+                    {artwork.title}
+                    <LuExternalLink />
+                  </h5>
                 </a>
                 <Card.Text>
                   <strong>Creation Date:</strong> {artwork.creation_date} <br />
@@ -249,18 +259,18 @@ const ArtList = () => {
                 </Card.Text>
                 <Col className="d-flex gap-2">
                   <Button
+                    disabled={isArtworkAdded(artwork)}
+                    className="mt-2"
                     onClick={() => handleAddToCollection(artwork)}
-                    variant={
-                      addedArtworks.some((item) => item.id === artwork.id)
-                        ? "success"
-                        : "secondary"
-                    }
+                    variant={isArtworkAdded(artwork) ? "success" : "secondary"}
                   >
-                    {addedArtworks.some((item) => item.id === artwork.id)
-                      ? "Added to Collections"
-                      : "Add to Collection"}
+                    {isArtworkAdded(artwork)
+                      ? "Saved to Collections"
+                      : "Save to Collections"}
                   </Button>
-                  <Button variant="secondary">Add to Exhibition</Button>
+                  <Button variant="secondary" className="mt-2">
+                    Add to Exhibition
+                  </Button>
                 </Col>
               </Card.Body>
             </Card>

@@ -2,7 +2,7 @@ export default function Footer() {
   return (
     <footer className="text-black" style={{ backgroundColor: "#ededed" }}>
       <div className="container py-3">
-        <div className="row sm-screen">
+        <div className="row">
           <div className="col-md-6">
             <p>
               &copy; {new Date().getFullYear()} ArtQuest. All rights reserved.
