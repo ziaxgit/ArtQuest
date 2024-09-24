@@ -16,6 +16,8 @@ import {
   getExhibitionsFromLocalStorage,
   setExhibitionsToLocalStorage,
 } from "../utils/exhibitionStorage";
+import { MdOutlineEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
 interface Artwork {
   id: number;
@@ -49,11 +51,18 @@ export default function Exhibitions() {
   const [selectedArtworks, setSelectedArtworks] = useState<number[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const [exhibitionToDelete, setExhibitionToDelete] = useState<number | null>(null);
+  const [exhibitionToDelete, setExhibitionToDelete] = useState<number | null>(
+    null
+  );
+  const [editingExhibition, setEditingExhibition] = useState<number | null>(
+    null
+  );
 
   const handleClose = () => {
     setShow(false);
     setError(null);
+    setEditingExhibition(null);
+    resetForm();
   };
   const handleShow = () => setShow(true);
 
@@ -66,10 +75,8 @@ export default function Exhibitions() {
   const handleArtworkSelection = (artworkId: number) => {
     setSelectedArtworks((prevSelected) => {
       if (prevSelected.includes(artworkId)) {
-        // Deselect the artwork
         return prevSelected.filter((id) => id !== artworkId);
       } else {
-        // Select the artwork
         return [...prevSelected, artworkId];
       }
     });
@@ -89,7 +96,10 @@ export default function Exhibitions() {
       name: exhibitionName.trim(),
       description: exhibitionDescription.trim(),
       path: `/exhibitions/${encodeURIComponent(exhibitionName.trim())}`,
-      imageUrl: "",
+      imageUrl:
+        editingExhibition !== null
+          ? exhibitions[editingExhibition].imageUrl
+          : "",
       artworks: selectedArtworks,
     };
 
@@ -106,16 +116,25 @@ export default function Exhibitions() {
   };
 
   const saveExhibition = (exhibition: Exhibition) => {
-    const newExhibitionList = [...exhibitions, exhibition];
+    let newExhibitionList;
+    if (editingExhibition !== null) {
+      newExhibitionList = [...exhibitions];
+      newExhibitionList[editingExhibition] = exhibition;
+    } else {
+      newExhibitionList = [...exhibitions, exhibition];
+    }
     setExhibitions(newExhibitionList);
     setExhibitionsToLocalStorage(newExhibitionList);
-    // Reset form fields
+    resetForm();
+    handleClose();
+  };
+
+  const resetForm = () => {
     setExhibitionName("");
     setExhibitionDescription("");
     setExhibitionImage(null);
     setSelectedArtworks([]);
     setError(null);
-    handleClose();
   };
 
   const handleDeleteConfirmation = (index: number) => {
@@ -134,6 +153,15 @@ export default function Exhibitions() {
     }
   };
 
+  const handleEdit = (index: number) => {
+    const exhibition = exhibitions[index];
+    setExhibitionName(exhibition.name);
+    setExhibitionDescription(exhibition.description);
+    setSelectedArtworks(exhibition.artworks);
+    setEditingExhibition(index);
+    handleShow();
+  };
+
   return (
     <>
       <Container>
@@ -142,7 +170,7 @@ export default function Exhibitions() {
         </Button>
         <Row className="mt-4 ">
           {exhibitions.map((exhibition, index) => (
-            <Col key={index} xs={12} sm={6} md={4} className="mb-4 ">
+            <Col key={index} xs={12} sm={6} className="mb-4 ">
               <Card className="rounded-0 rounded-top-2 shadow-sm ">
                 {exhibition.imageUrl && (
                   <img
@@ -152,23 +180,28 @@ export default function Exhibitions() {
                   />
                 )}
                 <Card.Body>
-                  <Card.Title>{exhibition.name}</Card.Title>
+                  <div className="d-flex align-items-center">
+                    <Link to={exhibition.path} className="text-decoration-none">
+                      <Card.Title>{exhibition.name}</Card.Title>
+                    </Link>
+                    <div className="ms-auto d-flex align-items-center gap-2">
+                      <button
+                        onClick={() => handleEdit(index)}
+                        className="exhibition-btns"
+                      >
+                        <MdOutlineEdit size={20} />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteConfirmation(index)}
+                        className="exhibition-btns "
+                      >
+                        <MdDelete color="#c9372c" size={20} />
+                      </button>
+                    </div>
+                  </div>
                   <Card.Text>{exhibition.description}</Card.Text>
                 </Card.Body>
               </Card>
-              <Link
-                to={exhibition.path}
-                className="btn btn-secondary w-75 rounded-0"
-              >
-                View Exhibition
-              </Link>
-              <Button
-                className="w-25 rounded-0"
-                variant="danger"
-                onClick={() => handleDeleteConfirmation(index)}
-              >
-                Delete
-              </Button>
             </Col>
           ))}
         </Row>
@@ -176,7 +209,11 @@ export default function Exhibitions() {
 
       <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Create New Exhibition</Modal.Title>
+          <Modal.Title>
+            {editingExhibition !== null
+              ? "Edit Exhibition"
+              : "Create New Exhibition"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -229,18 +266,26 @@ export default function Exhibitions() {
           </Button>
 
           <Button variant="primary" onClick={handleCreate}>
-            Create
+            {editingExhibition !== null ? "Save Changes" : "Create"}
           </Button>
         </Modal.Footer>
       </Modal>
 
-      <Modal show={showDeleteConfirmation} onHide={() => setShowDeleteConfirmation(false)}>
+      <Modal
+        show={showDeleteConfirmation}
+        onHide={() => setShowDeleteConfirmation(false)}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Confirm Delete</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this exhibition?</Modal.Body>
+        <Modal.Body>
+          Are you sure you want to delete this exhibition?
+        </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowDeleteConfirmation(false)}>
+          <Button
+            variant="secondary"
+            onClick={() => setShowDeleteConfirmation(false)}
+          >
             Cancel
           </Button>
           <Button variant="danger" onClick={handleDelete}>
