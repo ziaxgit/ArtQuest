@@ -89,3 +89,9 @@
     width: fit-content;
   }
 }
+
+.exhibition-btns {
+  border-radius: 5px;
+  background-color: rgb(230, 231, 232);
+  border-width: 0.1px;
+}
