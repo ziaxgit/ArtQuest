@@ -81,11 +81,11 @@
 }
 
 @media (max-width: 768px) {
-  .row div {
+  footer .row div {
     width: fit-content;
     font-size: 11px;
   }
-  .col-md-6 a {
+  footer .col-md-6 a {
     width: fit-content;
   }
 }
