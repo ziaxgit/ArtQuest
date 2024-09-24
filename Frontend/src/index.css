@@ -19,8 +19,8 @@
 }
 
 .exhibition-image {
-  max-width: 400px;
-  max-height: 400px;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 }
 
@@ -81,7 +81,11 @@
 }
 
 @media (max-width: 768px) {
-  footer .row {
-    text-align: center;
+  .row div {
+    width: fit-content;
+    font-size: 11px;
+  }
+  .col-md-6 a {
+    width: fit-content;
   }
 }
