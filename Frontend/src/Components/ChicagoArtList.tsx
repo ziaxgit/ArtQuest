@@ -14,7 +14,7 @@ import {
   getCollectionsFromLocalStorage,
   setCollectionsToLocalStorage,
 } from "../utils/collectionsStorage";
-
+import { FaHeart } from "react-icons/fa";
 interface Artwork {
   id: number;
   title: string;
@@ -147,7 +147,18 @@ const ChicagoArtList = () => {
       setAddedArtworks(updatedCollections);
     }
   };
+  const isArtworkAdded = (artwork: Artwork) => {
+    return addedArtworks.some((item) => item.id === artwork.id);
+  };
 
+  const handleRemoveFromCollection = (artwork: Artwork) => {
+    const currentCollections = getCollectionsFromLocalStorage();
+    const updatedCollections = currentCollections.filter(
+      (item) => item.id !== artwork.id
+    );
+    setCollectionsToLocalStorage(updatedCollections);
+    setAddedArtworks(updatedCollections);
+  };
   return (
     <Container className="mt-4">
       <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
@@ -276,18 +287,33 @@ const ChicagoArtList = () => {
                 />
                 <Col className="d-flex gap-2">
                   <Button
+                    disabled={isArtworkAdded(artwork)}
+                    className="mt-2 d-flex gap-2 justify-center align-items-center text-black"
                     onClick={() => handleAddToCollection(artwork)}
-                    variant={
-                      addedArtworks.some((item) => item.id === artwork.id)
-                        ? "success"
-                        : "secondary"
-                    }
+                    variant={isArtworkAdded(artwork) ? "white" : "light"}
                   >
-                    {addedArtworks.some((item) => item.id === artwork.id)
-                      ? "Added to Collections"
-                      : "Add to Collection"}
+                    <FaHeart
+                      style={{
+                        color: "red",
+                        fill: isArtworkAdded(artwork) ? "red" : "white",
+                        stroke: "red",
+                        strokeWidth: "20",
+                        width: "20px",
+                      }}
+                    />
+                    {isArtworkAdded(artwork)
+                      ? "Saved to Collections"
+                      : "Save to Collections"}
                   </Button>
-                  <Button variant="secondary">Add to Exhibition</Button>
+                  {isArtworkAdded(artwork) && (
+                    <Button
+                      className="mt-2 bg-danger"
+                      variant="secondary"
+                      onClick={() => handleRemoveFromCollection(artwork)}
+                    >
+                      Remove
+                    </Button>
+                  )}
                 </Col>
               </Card.Body>
             </Card>
@@ -304,7 +330,7 @@ const ChicagoArtList = () => {
         <Row className="justify-content-center m-4">
           <Button
             disabled={isLoading}
-            className="w-25"
+            className="w-auto"
             variant="primary"
             onClick={handleLoadMore}
           >
