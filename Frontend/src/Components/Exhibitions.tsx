@@ -48,6 +48,8 @@ export default function Exhibitions() {
   const [exhibitionImage, setExhibitionImage] = useState<File | null>(null);
   const [selectedArtworks, setSelectedArtworks] = useState<number[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [exhibitionToDelete, setExhibitionToDelete] = useState<number | null>(null);
 
   const handleClose = () => {
     setShow(false);
@@ -116,11 +118,20 @@ export default function Exhibitions() {
     handleClose();
   };
 
-  const handleDelete = (index: number) => {
-    const newExhibitionList = [...exhibitions];
-    newExhibitionList.splice(index, 1);
-    setExhibitions(newExhibitionList);
-    setExhibitionsToLocalStorage(newExhibitionList);
+  const handleDeleteConfirmation = (index: number) => {
+    setExhibitionToDelete(index);
+    setShowDeleteConfirmation(true);
+  };
+
+  const handleDelete = () => {
+    if (exhibitionToDelete !== null) {
+      const newExhibitionList = [...exhibitions];
+      newExhibitionList.splice(exhibitionToDelete, 1);
+      setExhibitions(newExhibitionList);
+      setExhibitionsToLocalStorage(newExhibitionList);
+      setShowDeleteConfirmation(false);
+      setExhibitionToDelete(null);
+    }
   };
 
   return (
@@ -154,7 +165,7 @@ export default function Exhibitions() {
               <Button
                 className="w-25 rounded-0"
                 variant="danger"
-                onClick={() => handleDelete(index)}
+                onClick={() => handleDeleteConfirmation(index)}
               >
                 Delete
               </Button>
@@ -219,6 +230,21 @@ export default function Exhibitions() {
 
           <Button variant="primary" onClick={handleCreate}>
             Create
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showDeleteConfirmation} onHide={() => setShowDeleteConfirmation(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this exhibition?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteConfirmation(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
           </Button>
         </Modal.Footer>
       </Modal>
