@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { getCollectionsFromLocalStorage } from "../utils/collectionsStorage";
+import {
+  getCollectionsFromLocalStorage,
+  setCollectionsToLocalStorage,
+} from "../utils/collectionsStorage";
 import { LuExternalLink } from "react-icons/lu";
+import { MdDelete } from "react-icons/md";
 
 interface Artwork {
   id: number;
@@ -17,7 +20,17 @@ interface Artwork {
 }
 
 export default function Collections() {
-  const [artData] = useState<Artwork[]>(getCollectionsFromLocalStorage());
+  const [artData, setArtData] = useState<Artwork[]>(
+    getCollectionsFromLocalStorage()
+  );
+
+  const handleDelete = (artworkId: number) => {
+    const updatedArtData = artData.filter(
+      (artwork) => artwork.id !== artworkId
+    );
+    setCollectionsToLocalStorage(updatedArtData);
+    setArtData(updatedArtData);
+  };
 
   return (
     <Container className="mt-4">
@@ -41,17 +54,33 @@ export default function Collections() {
                 style={{ maxHeight: "500px", objectFit: "cover" }}
               />
               <Card.Body>
-                <a
-                  href={artwork.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-decoration-none"
-                >
-                  <h5 className="d-flex gap-2 align-items-center">
-                    {artwork.title}
-                    <LuExternalLink />
-                  </h5>
-                </a>
+                <div className="d-flex justify-content-between align-items-center">
+                  <a
+                    href={artwork.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-decoration-none"
+                  >
+                    <h5 className="d-flex gap-2 align-items-center flex-wrap">
+                      {artwork.title}
+                      <LuExternalLink />
+                    </h5>
+                  </a>
+                  <button
+                    className="text-decoration-none"
+                    style={{
+                      background: "none",
+                      border: "none",
+                      padding: 0,
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      handleDelete(artwork.id);
+                    }}
+                  >
+                    <MdDelete color="#c9372c" size={24} />
+                  </button>
+                </div>
                 <Card.Text>
                   <strong>Creation Date:</strong> {artwork.created_at} <br />
                   <strong>Department:</strong> {artwork.department} <br />

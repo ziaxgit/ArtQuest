@@ -1,4 +1,3 @@
-// ExhibitionDetail.tsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
@@ -37,7 +36,6 @@ export default function ExhibitionDetail() {
     );
     if (foundExhibition) {
       setExhibition(foundExhibition);
-      // Get the artworks associated with this exhibition
       const allArtworks = getCollectionsFromLocalStorage();
       const exhibitionArtworks = allArtworks.filter((artwork) =>
         foundExhibition.artworks.includes(artwork.id)
