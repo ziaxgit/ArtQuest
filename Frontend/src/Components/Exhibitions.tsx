@@ -172,7 +172,7 @@ export default function Exhibitions() {
           </>
         )}
 
-        <Button onClick={handleShow} variant="primary">
+        <Button onClick={handleShow} variant="primary" className="mt-4">
           New Exhibition
         </Button>
         <Row className="mt-4 ">
@@ -234,7 +234,9 @@ export default function Exhibitions() {
                 value={exhibitionName}
                 onChange={(e) => setExhibitionName(e.target.value)}
               />
-              <Form.Label>Description</Form.Label>
+              <Form.Label>
+                Description <span className="text-black-50">(optional)</span>
+              </Form.Label>
               <Form.Control
                 as="textarea"
                 type="text"
@@ -244,12 +246,15 @@ export default function Exhibitions() {
               />
             </Form.Group>
             <Form.Group controlId="formFile" className="mt-2">
-              <Form.Label>Choose an image</Form.Label>
+              <Form.Label>
+                Choose an image{" "}
+                <span className="text-black-50">(optional)</span>
+              </Form.Label>
               <Form.Control type="file" onChange={handleImageChange} />
             </Form.Group>
           </Form>
           <Form.Label className="mt-2">
-            Select artworks for this exhibition
+            Select artworks from your Collections
           </Form.Label>
           <ListGroup>
             {artData.map((artwork) => (
