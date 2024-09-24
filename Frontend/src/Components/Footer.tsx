@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-light text-black">
+    <footer className="text-black" style={{ backgroundColor: "#ededed" }}>
       <div className="container py-3">
         <div className="row sm-screen">
           <div className="col-md-6">
