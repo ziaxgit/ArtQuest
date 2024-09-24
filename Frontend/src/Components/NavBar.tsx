@@ -36,7 +36,7 @@ const NavBar: React.FC = () => {
           className="justify-content-center fs-5"
           id="basic-navbar-nav"
         >
-          <Nav className="ms-auto">
+          <Nav className="ms-auto" style={{ textAlign: "center" }}>
             <Nav.Link as={NavLink} to="/" onClick={handleNavClick}>
               Home
             </Nav.Link>
