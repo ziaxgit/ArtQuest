@@ -54,18 +54,19 @@ export default function ExhibitionDetail() {
 
   return (
     <Container>
-      <h2 className="mt-4">{exhibition.name}</h2>
-      <p>{exhibition.description}</p>
       {exhibition.imageUrl && (
-        <img
-          src={exhibition.imageUrl}
-          alt={exhibition.name}
-          className="img-fluid mb-4"
-        />
+        <div className="exhibition-img-container mt-4">
+          <img src={exhibition.imageUrl} alt={exhibition.name} />
+          <div className="exhibition-img-overlay px-4">
+            <h1>{exhibition.name}</h1>
+            <p>{exhibition.description}</p>
+          </div>
+        </div>
       )}
       <Row>
+        <h4 className="text-center m-4">Artworks for this exhibition</h4>
         {artworks.map((artwork) => (
-          <Col key={artwork.id} xs={12} sm={12} className="mb-4">
+          <Col key={artwork.id} xs={12} sm={12} md={6} className="mb-4">
             <Card className="h-100">
               {artwork.image_src && (
                 <Card.Img
@@ -88,7 +89,10 @@ export default function ExhibitionDetail() {
                   <strong>Department:</strong> {artwork.department} <br />
                   <strong>Culture:</strong> {artwork.origin} <br />
                   <strong>Artist:</strong> {artwork.artist} <br />
-                  <strong>Description:</strong> {artwork.description} <br />
+                  <Card.Text
+                    className="mt-2"
+                    dangerouslySetInnerHTML={{ __html: artwork.description }}
+                  />
                 </Card.Text>
               </Card.Body>
             </Card>
