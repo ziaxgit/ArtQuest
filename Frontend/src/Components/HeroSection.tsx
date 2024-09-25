@@ -6,8 +6,8 @@ function HeroSection() {
   return (
     <div className="hero-section-container text-center mt-4">
       <Container>
-        <div className="hero-text-div text-black-50">
-          <h1 className="">Unleash Your Inner Curator</h1>
+        <div className="hero-text-div">
+          <h1 className="text-uppercase">Unleash Your Inner Curator</h1>
           <p className="lead text-black-50">
             Welcome to ArtQuest, a groundbreaking platform that empowers you to
             create personalized virtual exhibitions from the extensive
