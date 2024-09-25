@@ -159,7 +159,7 @@ const ArtList = () => {
         </Row>
       </Form>
 
-      <div className="mt-2 d-flex gap-2 align-items-center">
+      <div className="mt-2 d-flex gap-2 align-items-center flex-wrap">
         <Dropdown className="mt-2">
           <Dropdown.Toggle
             variant={filterTerm ? "success" : "secondary"}
