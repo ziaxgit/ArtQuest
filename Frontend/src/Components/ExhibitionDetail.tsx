@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { getExhibitionsFromLocalStorage } from "../utils/exhibitionStorage";
 import { getCollectionsFromLocalStorage } from "../utils/collectionsStorage";
+import { LuExternalLink } from "react-icons/lu";
 
 interface Artwork {
   id: number;
@@ -88,7 +89,10 @@ export default function ExhibitionDetail() {
                     rel="noopener noreferrer"
                     className="text-decoration-none"
                   >
-                    <h4>{artwork.title}</h4>
+                    <h5 className="d-flex gap-2 align-items-center">
+                      {artwork.title}
+                      <LuExternalLink />
+                    </h5>
                   </a>
                   <strong>Creation Date:</strong> {artwork.created_at} <br />
                   <strong>Department:</strong> {artwork.department} <br />
