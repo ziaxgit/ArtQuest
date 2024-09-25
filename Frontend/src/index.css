@@ -50,11 +50,13 @@
   margin-top: -50px;
   z-index: -9999;
 }
-
 @media (max-width: 576px) {
   .hero-text-div h1 {
-    font-size: 1.7rem;
+    display: block; /* Ensures it behaves as a block element */
+    width: 100%; /* Takes up all available space */
+    font-size: 6vw; /* Adjust the value as needed */
   }
+
   .hero-text-div p {
     font-size: 15px;
   }
@@ -67,6 +69,16 @@
     padding-right: 15px;
     padding-left: 15px;
   }
+}
+.hero-text-div h1 {
+  background: rgb(0, 0, 0);
+  background: radial-gradient(
+    circle,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(252, 70, 107, 1) 100%
+  );
+  background-clip: text;
+  color: transparent;
 }
 @media (min-width: 768px) {
   .hero-text-div h1 {
@@ -132,7 +144,7 @@ footer {
 .exhibition-img-overlay {
   color: rgb(255, 255, 255);
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.442);
+  background-color: rgba(0, 0, 0, 0.602);
   height: 100%;
   width: 100%;
   text-align: center;
@@ -140,4 +152,10 @@ footer {
   justify-content: center;
   flex-direction: column;
   gap: 20px;
+}
+
+.exhibition-h1-p-container {
+  border-radius: 10px;
+  background: #000000d8;
+  box-shadow: -20px -20px 60px #b2adad, 20px 20px 60px #969696;
 }

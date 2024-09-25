@@ -57,6 +57,7 @@ export default function Exhibitions() {
   const [editingExhibition, setEditingExhibition] = useState<number | null>(
     null
   );
+  const [showNoArtworkModal, setShowNoArtworkModal] = useState(false);
 
   const handleClose = () => {
     setShow(false);
@@ -64,7 +65,13 @@ export default function Exhibitions() {
     setEditingExhibition(null);
     resetForm();
   };
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    if (artData.length === 0) {
+      setShowNoArtworkModal(true);
+    } else {
+      setShow(true);
+    }
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -167,7 +174,7 @@ export default function Exhibitions() {
       <Container>
         {exhibitions.length === 0 && (
           <>
-            <h2 className="mt-4">No exhibitions yet</h2>
+            <h2 className="mt-4">No exhibitions available</h2>
             <p>Get started by adding a new exhibition </p>
           </>
         )}
@@ -303,6 +310,33 @@ export default function Exhibitions() {
           <Button variant="danger" onClick={handleDelete}>
             Delete
           </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={showNoArtworkModal}
+        onHide={() => setShowNoArtworkModal(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>No saved artworks</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            You need to add at least 1 artwork to
+            <span className="fw-bold"> Collections </span>
+            before creating an exhibition.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowNoArtworkModal(false)}
+          >
+            Close
+          </Button>
+          <Link to="/explore">
+            <Button variant="primary">Explore</Button>
+          </Link>
         </Modal.Footer>
       </Modal>
     </>

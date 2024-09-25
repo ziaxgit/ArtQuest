@@ -54,13 +54,18 @@ export default function ExhibitionDetail() {
 
   return (
     <Container>
-      {exhibition.imageUrl && (
+      {exhibition.imageUrl ? (
         <div className="exhibition-img-container mt-4">
           <img src={exhibition.imageUrl} alt={exhibition.name} />
           <div className="exhibition-img-overlay px-4">
             <h1>{exhibition.name}</h1>
             <p>{exhibition.description}</p>
           </div>
+        </div>
+      ) : (
+        <div className="mt-4 p-3 text-center exhibition-h1-p-container text-white">
+          <h1 className="mb-4">{exhibition.name}</h1>
+          <p>{exhibition.description}</p>
         </div>
       )}
       <Row>
