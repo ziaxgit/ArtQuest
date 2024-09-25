@@ -1,30 +1,59 @@
-# React + TypeScript + Vite
+# [ArtQuest](https://artquest.vercel.app/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ArtQuest is a dynamic web application that allows art enthusiasts to explore, collect, and engage with a wide range of artworks and exhibitions using **[The Art Institute of Chicago](https://www.artic.edu/)** or **[The Cleveland Museum of Art](https://www.clevelandart.org/)** API's.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Features](#features)
+- [Navigation](#navigation)
+- [Exhibitions](#exhibitions)
+- [Artwork Exploration](#artwork-exploration)
+- [Technology Stack](#technology-stack)
+- [Getting Started](#getting-started)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Home**: The landing page of ArtQuest, providing an overview of the site's features.
+- **Explore**: Discover new artworks and artists using search term and filters.
+- **Collections**: View and manage your personal art collections.
+- **Exhibitions**: Browse current exhibitions and create upcoming ones.
 
-- Configure the top-level `parserOptions` property like this:
+## Navigation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+The website features a user-friendly navigation bar at the top of every page, allowing easy access to all main sections:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. **Home**: Access the main page by clicking on the ArtQuest logo or the "Home" link.
+2. **Explore**: Click on "Explore" to discover new artworks.
+3. **Collections**: View your personal collections by clicking on "Collections".
+4. **Exhibitions**: Browse exhibitions by selecting "Exhibitions".
+
+## Exhibitions
+
+- View a list of exhibitions on the Exhibitions page.
+- Click on an exhibition to view its details.
+- Create new exhibitions or edit existing ones using the provided forms.
+
+## Artwork Exploration
+
+- Browse artworks from **The Art Institute of Chicago** or **The Cleveland Museum of Art** on the Explore page.
+- Click on artwork titles to view more details on the official Art Institute website.
+- Images, creation dates, departments, origins, and creator information are displayed for each artwork.
+- Click "Save to Collections" to add artworks to your personal collections.
+
+## Technology Stack
+
+ArtQuest is built using modern web technologies:
+
+- React with TypeScript
+- Vite for fast development and building
+- React Router for navigation
+- React Bootstrap for responsive design
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Run the development server: `npm run dev`
+4. Open your browser and navigate to the provided local URL
+
+Enjoy exploring the world of art with ArtQuest! :)
