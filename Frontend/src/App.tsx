@@ -9,6 +9,7 @@ import ChicagoArtList from "./Components/ChicagoArtList";
 import ExhibitionDetail from "./Components/ExhibitionDetail";
 import Explore from "./Components/Explore";
 import Footer from "./Components/Footer";
+import FeaturedExhibitionPage from "./Components/FeaturedExhibitionPage";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,10 @@ const App: React.FC = () => {
           <Route
             path="/exhibitions/:exhibitionName"
             element={<ExhibitionDetail />}
+          />
+          <Route
+            path="/exhibitions/featured/:exhibitionName"
+            element={<FeaturedExhibitionPage />}
           />
 
           <Route path={"/clevelandmuseum"} element={<ArtList />} />
