@@ -205,3 +205,9 @@ footer {
   background: #ffffff;
   box-shadow: 0px 0px 15px 0px #e8ea72bd, -20px -20px 60px #ffffff;
 }
+
+.custom-exhibition-link-button {
+  background-color: white;
+  border: none;
+  padding: 0;
+}
