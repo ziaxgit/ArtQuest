@@ -18,6 +18,7 @@ import {
 } from "../utils/exhibitionStorage";
 import { MdOutlineEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import FeaturedExhibition from "./FeaturedExhibition";
 
 interface Artwork {
   id: number;
@@ -58,7 +59,7 @@ export default function Exhibitions() {
     null
   );
   const [showNoArtworkModal, setShowNoArtworkModal] = useState(false);
-
+  console.log(exhibitions);
   const handleClose = () => {
     setShow(false);
     setError(null);
@@ -172,16 +173,10 @@ export default function Exhibitions() {
   return (
     <>
       <Container>
-        {exhibitions.length === 0 && (
-          <>
-            <h2 className="mt-4">No exhibitions available</h2>
-            <p>Get started by adding a new exhibition </p>
-          </>
-        )}
-
-        <Button onClick={handleShow} variant="primary" className="mt-4">
+        <Button onClick={handleShow} variant="primary" className="mt-4 mb-4">
           New Exhibition
         </Button>
+        <FeaturedExhibition />
         <Row className="mt-4 ">
           {exhibitions.map((exhibition, index) => (
             <Col key={index} xs={12} sm={6} className="mb-4 ">
