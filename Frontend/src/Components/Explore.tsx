@@ -1,5 +1,5 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import artInstituteOfChicagoImage from "../assets/wide_med_art-institute-of-chicago-01-2.jpg";
+import artInstituteOfChicagoImage from "../assets/art-institute-of-chicago.jpg";
 import clevelandMuseumImage from "../assets/ClevelandMuseum_exterior.jpg";
 
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,7 @@ export default function Explore() {
               <img
                 src={clevelandMuseumImage}
                 alt="Image"
-                className="img-fluid museum-img"
+                className="museum-img cleveland-museum-img"
               />
             </Col>
 
@@ -47,7 +47,7 @@ export default function Explore() {
               <img
                 src={artInstituteOfChicagoImage}
                 alt="Image"
-                className="img-fluid museum-img"
+                className="museum-img"
               />
             </Col>
             <Col xs={12} md={6} className="p-3">
