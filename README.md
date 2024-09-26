@@ -1,6 +1,6 @@
 # [ArtQuest](https://artquest.vercel.app/)
 
-ArtQuest is a dynamic web application that allows art enthusiasts to explore, collect, and engage with a wide range of artworks and exhibitions using **[The Art Institute of Chicago](https://www.artic.edu/)** or **[The Cleveland Museum of Art](https://www.clevelandart.org/)** API's.
+ArtQuest is a dynamic web application that allows art enthusiasts to explore, collect, and engage with a wide range of artworks and exhibitions using **[The Art Institute of Chicago](https://www.artic.edu/)** and **[The Cleveland Museum of Art](https://www.clevelandart.org/)** API's.
 
 ## Table of Contents
 
