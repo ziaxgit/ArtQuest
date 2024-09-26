@@ -5,6 +5,7 @@ import likePost from "../assets/museum-concept-illustration(1).png";
 import browseArts from "../assets/museum-concept-illustration.png";
 import { Container, Row, Col } from "react-bootstrap";
 import FeaturedExhibition from "./FeaturedExhibition";
+import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <div>
@@ -18,9 +19,9 @@ export default function Home() {
             className="m-auto custom-home-sm-screen
 "
           >
-            <a href="/explore" className="text-decoration-none text-black">
+            <Link to="/explore" className="text-decoration-none text-black">
               <h5 className="mb-3">EXPLORE & COLLECT</h5>
-            </a>
+            </Link>
             <p className="text-black-50 custom-margin1">
               Dive into an extensive collection of artworks from renowned
               museums. Use filters and search tools to discover pieces that
@@ -40,9 +41,9 @@ export default function Home() {
       <Container className="mt-4 mb-5">
         <Row className="flex-row-reverse">
           <Col sm={12} md={6} className="m-auto custom-home-sm-screen">
-            <a href="/exhibitions" className="text-decoration-none text-black">
+            <Link to="/exhibitions" className="text-decoration-none text-black">
               <h5 className="mb-3">EXHIBITIONS</h5>
-            </a>
+            </Link>
             <p className="text-black-50 custom-margin1">
               Create dynamic virtual exhibitions that showcase your favorite
               artworks. Add descriptions, arrange pieces to tell a story, and

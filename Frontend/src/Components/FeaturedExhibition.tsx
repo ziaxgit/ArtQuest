@@ -4,7 +4,7 @@ import {
   chineseArtExhibition,
   vincentVanGoghExhibition,
 } from "../data/featuredExhibition";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function FeaturedExhibition() {
   console.log(featuredExhibitions);
@@ -31,11 +31,11 @@ function FeaturedExhibition() {
 
   return (
     <Container>
-      <a href="/exhibitions" className="text-decoration-none text-black">
+      <Link to="/exhibitions" className="text-decoration-none text-black">
         <h4 className="featured-title mb-4 text-center">
           FEATURED EXHIBITIONS
         </h4>
-      </a>
+      </Link>
       <div className="featured-exhibitions-container">
         <Row className="home-exhibition-row">
           {featuredExhibitions.map((exhibition) => {

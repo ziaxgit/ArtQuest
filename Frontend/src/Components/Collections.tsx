@@ -6,6 +6,7 @@ import {
 } from "../utils/collectionsStorage";
 import { LuExternalLink } from "react-icons/lu";
 import { MdDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 interface Artwork {
   id: number;
@@ -40,7 +41,7 @@ export default function Collections() {
       </h2>
       {artData.length === 0 && (
         <p className="text-center">
-          Head to <a href="/explore">Explore</a> to browse artworks
+          Head to <Link to="/explore">Explore</Link> to browse artworks
         </p>
       )}
 
