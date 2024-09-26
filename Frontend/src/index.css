@@ -41,6 +41,16 @@
   display: flex;
 }
 
+.museum-img {
+  max-width: 100%;
+  object-fit: cover;
+  min-height: 100%;
+}
+
+.cleveland-museum-img {
+  object-fit: cover;
+}
+
 .hero-section-container {
   position: relative;
 }
@@ -52,9 +62,9 @@
 }
 @media (max-width: 576px) {
   .hero-text-div h1 {
-    display: block; /* Ensures it behaves as a block element */
-    width: 100%; /* Takes up all available space */
-    font-size: 6vw; /* Adjust the value as needed */
+    display: block;
+    width: 100%;
+    font-size: 6vw;
   }
 
   .hero-text-div p {
@@ -80,20 +90,29 @@
   background-clip: text;
   color: transparent;
 }
-@media (min-width: 768px) {
+.hero-text-div p {
+  background-color: #ffffff;
+  padding: 15px 20px;
+  margin: 20px 0;
+  border-left: 5px solid #d2d0cfba;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  text-align: left;
+}
+@media (min-width: 740px) {
   .hero-text-div h1 {
-    font-size: 3rem;
-  }
-  .hero-text-div p {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
   .hero-img-div img {
     margin-top: -140px;
   }
+  .hero-text-div p {
+    text-align: center;
+  }
 }
 @media (min-width: 1000px) {
   .hero-img-div img {
-    margin-top: -280px;
+    margin-top: -200px;
   }
 }
 
@@ -158,4 +177,19 @@ footer {
   border-radius: 10px;
   background: #000000d8;
   box-shadow: -20px -20px 60px #b2adad, 20px 20px 60px #969696;
+}
+
+@media (max-width: 768px) {
+  .custom-home-sm-screen {
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .custom-margin1 {
+    margin-bottom: 20px !important;
+  }
+
+  .custom-margin2 {
+    margin-top: 20px !important;
+  }
 }
