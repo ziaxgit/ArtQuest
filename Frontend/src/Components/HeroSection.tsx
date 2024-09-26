@@ -9,11 +9,11 @@ function HeroSection() {
         <div className="hero-text-div">
           <h1 className="text-uppercase">Unleash Your Inner Curator</h1>
           <p className="lead text-black-50">
-            Welcome to ArtQuest, a groundbreaking platform that empowers you to
-            create personalized virtual exhibitions from the extensive
-            collections of the world's leading museums and universities. Whether
-            you're a researcher, student, or an art enthusiast, ArtQuest brings
-            the art world to your fingertips.
+            Welcome to ArtQuest, a unique platform that empowers you to create
+            personalized virtual exhibitions from the extensive collections of
+            the world's leading museums and universities. Whether you're a
+            researcher, student, or an art enthusiast, ArtQuest brings the art
+            world to your fingertips.
           </p>
           <div className="mt-4 hero-btn">
             <Button href="/explore" variant="primary" className="me-2">
