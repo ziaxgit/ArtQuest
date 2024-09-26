@@ -112,7 +112,7 @@ const ArtList = () => {
       origin: artwork.culture,
       department: artwork.department,
       url: artwork.url,
-      image_src: artwork.images.web.url,
+      image_src: artwork.images.web?.url,
       created_at: artwork.creation_date,
     };
     const currentCollections = getCollectionsFromLocalStorage();
@@ -235,7 +235,7 @@ const ArtList = () => {
               <a>
                 <Card.Img
                   variant="top"
-                  src={artwork.images.web.url}
+                  src={artwork.images.web?.url}
                   alt={artwork.title}
                   style={{ maxHeight: "500px", objectFit: "contain" }}
                 />

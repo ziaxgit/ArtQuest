@@ -29,7 +29,7 @@ export default function ExhibitionDetail() {
   const { exhibitionName } = useParams();
   const [exhibition, setExhibition] = useState<Exhibition | null>(null);
   const [artworks, setArtworks] = useState<Artwork[]>([]);
-
+  console.log(exhibition);
   useEffect(() => {
     const exhibitions = getExhibitionsFromLocalStorage();
     const foundExhibition = exhibitions.find(
@@ -48,7 +48,7 @@ export default function ExhibitionDetail() {
   if (!exhibition) {
     return (
       <Container>
-        <h2>Exhibition not found</h2>
+        <h2>Loading...</h2>
       </Container>
     );
   }
