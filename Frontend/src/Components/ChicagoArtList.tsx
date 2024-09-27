@@ -15,6 +15,8 @@ import {
   setCollectionsToLocalStorage,
 } from "../utils/collectionsStorage";
 import { FaHeart } from "react-icons/fa";
+import { LuExternalLink } from "react-icons/lu";
+
 interface Artwork {
   id: number;
   title: string;
@@ -271,7 +273,10 @@ const ChicagoArtList = () => {
                   rel="noopener noreferrer"
                   className="text-decoration-none"
                 >
-                  <h4>{artwork.title}</h4>
+                  <h5 className="d-flex gap-2 align-items-center">
+                    {artwork.title}
+                    <LuExternalLink />
+                  </h5>
                 </a>
                 <Card.Text>
                   <strong>Creation Date:</strong> {artwork.date_display} <br />
