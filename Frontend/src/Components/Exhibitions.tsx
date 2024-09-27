@@ -1,3 +1,4 @@
+import imageCompression from "browser-image-compression";
 import React, { useState } from "react";
 import {
   Container,
@@ -59,7 +60,6 @@ export default function Exhibitions() {
     null
   );
   const [showNoArtworkModal, setShowNoArtworkModal] = useState(false);
-  console.log(exhibitions);
   const handleClose = () => {
     setShow(false);
     setError(null);
@@ -74,12 +74,21 @@ export default function Exhibitions() {
     }
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setExhibitionImage(e.target.files[0]);
+      const imageFile = e.target.files[0];
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 800,
+        useWebWorker: true,
+      };
+      try {
+        const compressedFile = await imageCompression(imageFile, options);
+        setExhibitionImage(compressedFile);
+      } catch (error) {
+      }
     }
   };
-
   const handleArtworkSelection = (artworkId: number) => {
     setSelectedArtworks((prevSelected) => {
       if (prevSelected.includes(artworkId)) {
@@ -100,7 +109,7 @@ export default function Exhibitions() {
       return;
     }
 
-    const newExhibition = {
+    const newExhibition: Exhibition = {
       name: exhibitionName.trim(),
       description: exhibitionDescription.trim(),
       path: `/exhibitions/${encodeURIComponent(exhibitionName.trim())}`,
