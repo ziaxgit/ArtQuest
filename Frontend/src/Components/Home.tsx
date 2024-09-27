@@ -61,16 +61,7 @@ export default function Home() {
       </Container>
 
       <FeaturedExhibition />
-
-      <div className="mt-5">
-        FOR TESTING PURPOSES ONLY
-        <button
-          onClick={() => clearExhibitionsFromLocalStorage()}
-          className="mb-3"
-        >
-          Reset Local Cache
-        </button>
-      </div>
+      <div className="mb-5"></div>
     </div>
   );
 }
