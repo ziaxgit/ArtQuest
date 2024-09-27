@@ -7,11 +7,9 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 
 function FeaturedExhibition() {
-  console.log(featuredExhibitions);
   const navigate = useNavigate();
 
   function navigateToPage(exhibitionName) {
-    console.log(exhibitionName);
     if (exhibitionName === "Van Gogh's Masterpieces") {
       navigate(`/exhibitions/featured/${exhibitionName}`, {
         state: {

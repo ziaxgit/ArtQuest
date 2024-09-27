@@ -29,7 +29,6 @@ export default function ExhibitionDetail() {
   const { exhibitionName } = useParams();
   const [exhibition, setExhibition] = useState<Exhibition | null>(null);
   const [artworks, setArtworks] = useState<Artwork[]>([]);
-  console.log(exhibition);
   useEffect(() => {
     const exhibitions = getExhibitionsFromLocalStorage();
     const foundExhibition = exhibitions.find(

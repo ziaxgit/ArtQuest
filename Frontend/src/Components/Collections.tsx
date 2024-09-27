@@ -25,7 +25,6 @@ export default function Collections() {
     getCollectionsFromLocalStorage()
   );
 
-  console.log(artData);
   const handleDelete = (artworkId: number) => {
     const updatedArtData = artData.filter(
       (artwork) => artwork.id !== artworkId

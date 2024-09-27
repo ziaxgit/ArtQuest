@@ -6,8 +6,6 @@ export default function ExhibitionDetailPage() {
   const location = useLocation();
   const { artworks, exhibition } = location.state || {};
 
-  console.log(artworks, exhibition);
-
   return (
     <Container>
       <div className="exhibition-img-container mt-4">

@@ -91,7 +91,6 @@ const ArtList = () => {
       artData.sort((a: any, b: any) => a.sortable_date - b.sortable_date);
     } else {
       artData.sort((a: any, b: any) => b.sortable_date - a.sortable_date);
-      console.log(artData);
     }
   };
 

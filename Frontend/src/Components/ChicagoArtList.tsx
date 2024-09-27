@@ -103,7 +103,6 @@ const ChicagoArtList = () => {
     );
     setArtData(data);
     setIsLoading(false);
-    console.log(artData);
   };
 
   const handleSortClick = (sort: string) => {

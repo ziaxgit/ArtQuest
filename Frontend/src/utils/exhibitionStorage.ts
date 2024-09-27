@@ -8,7 +8,6 @@ interface Exhibition {
 export const getExhibitionsFromLocalStorage = (): Exhibition[] => {
   try {
     const storedExhibitions = localStorage.getItem("exhibitions");
-    console.log(JSON.parse(storedExhibitions));
     return storedExhibitions ? JSON.parse(storedExhibitions) : [];
   } catch (error) {
     console.error("Error retrieving exhibitions from localStorage", error);
