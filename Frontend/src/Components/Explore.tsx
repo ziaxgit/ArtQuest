@@ -11,7 +11,7 @@ export default function Explore() {
     navigate(`/${apiName}`);
   }
   return (
-    <Container className="mt-4">
+    <Container className="mt-4 mb-4">
       <Row>
         <Col>
           <Card className="d-flex flex-row flex-wrap border-0 shadow gap-">
@@ -50,7 +50,7 @@ export default function Explore() {
                 className="museum-img"
               />
             </Col>
-            <Col xs={12} md={6} className="p-3">
+            <Col xs={12} md={6} className="p-3 ">
               <h3 className="card-title mb-4">Art Institute of Chicago</h3>
               <p className="mb-4">
                 The Chicago Art Institute, founded in 1879, is a premier art
