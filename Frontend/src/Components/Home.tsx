@@ -1,4 +1,3 @@
-import { clearExhibitionsFromLocalStorage } from "../utils/exhibitionStorage";
 import "../index.css";
 import HeroSection from "./HeroSection";
 import likePost from "../assets/museum-concept-illustration(1).png";
