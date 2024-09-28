@@ -31,7 +31,7 @@ export default function Home() {
           <Col>
             <img
               src={browseArts}
-              alt="Cleveland Museum of Art"
+              alt="girl lookin at different arts"
               className="img-fluid class-icon"
             />
           </Col>
@@ -52,7 +52,7 @@ export default function Home() {
           <Col>
             <img
               src={likePost}
-              alt="Cleveland Museum of Art"
+              alt="two cartoon figures looking at art"
               className="img-fluid"
             />
           </Col>
