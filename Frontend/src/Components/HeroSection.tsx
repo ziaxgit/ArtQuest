@@ -1,8 +1,14 @@
 import { Container, Button } from "react-bootstrap";
 import "../index.css"; // Custom styles for the hero section
 import heroImg from "../assets/hero-img.png";
+import { useNavigate } from "react-router-dom";
 
 function HeroSection() {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/explore");
+  };
   return (
     <div className="hero-section-container text-center mt-4">
       <Container>
@@ -16,7 +22,7 @@ function HeroSection() {
             world to your fingertips.
           </p>
           <div className="mt-4 hero-btn">
-            <Button href="/explore" variant="primary" className="me-2">
+            <Button onClick={handleClick} variant="primary" className="me-2">
               Start Your ArtQuest
             </Button>
           </div>
